@@ -17,14 +17,14 @@ firebaseConfig = {
   'measurementId': "G-BF70XBJ7YD"
 }
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
-	return render_template("index.html")
-
 app.config['SECRET_KEY'] = 'super-secret-key'
 firebase = pyrebase.initialize_app(firebaseConfig) 
 auth = firebase.auth()
 db = firebase.database()
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+  return render_template("index.html")
 
 
 if __name__ == "__main__":  

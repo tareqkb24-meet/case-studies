@@ -15,16 +15,17 @@ firebaseConfig = {
   "messagingSenderId": "904198728084",
   "appId": "1:904198728084:web:3bcf00efde3e24626fc781",
   'measurementId': "G-BF70XBJ7YD"
-}
+};
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def index():
-	return render_template("index.html")
+    return render_template("index.html")
 
 app.config['SECRET_KEY'] = 'super-secret-key'
 firebase = pyrebase.initialize_app(firebaseConfig) 
 auth = firebase.auth()
 db = firebase.database()
+
 
 
 if __name__ == "__main__":  

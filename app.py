@@ -29,6 +29,10 @@ db = firebase.database()
 
 @app.route ('/chat', methods = ['GET', 'POST']) 
 def chat (): 
+input_1 = request.form["students"] 
+
+
+
     return render_template("chat.html") 
  
 

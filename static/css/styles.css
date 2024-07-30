@@ -7642,6 +7642,7 @@ textarea.form-control-lg {
 
 .mb-1 {
   margin-bottom: 0.25rem !important;
+  color: white;
 }
 
 .mb-2 {
@@ -7658,6 +7659,7 @@ textarea.form-control-lg {
 
 .mb-5 {
   margin-bottom: 3rem !important;
+  color: white;
 }
 
 .mb-auto {
@@ -11004,10 +11006,13 @@ footer.footer .social-link:hover {
   height: auto;
   padding-top: 8rem;
   padding-bottom: 8rem;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), url("../assets/img/bg-masthead.jpg");
+  background-blend-mode: multiply;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), url("https://www.york.ac.uk/media/study-new/undergraduate/campus-1200-a.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+    background-color: rgba(50,25,0,0.7) !important;
+
 }
 .masthead h1, .masthead .h1 {
   font-size: 4rem;

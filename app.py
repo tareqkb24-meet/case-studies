@@ -18,20 +18,13 @@ firebaseConfig = {
   "databaseURL":"https://givat-haviva-69b54-default-rtdb.europe-west1.firebasedatabase.app/"
 }
 
-
-
-@app.route('/home', methods=['GET', 'POST'])
-def index():
-    return render_template("index.html")
-
 app.config['SECRET_KEY'] = 'super-secret-key'
 firebase = pyrebase.initialize_app(firebaseConfig) 
 auth = firebase.auth()
 db = firebase.database()
 
-
-@app.route ('/chat', methods = ['GET', 'POST']) 
-def chat (): 
+@app.route('/home', methods=['GET', 'POST'])
+def index():
   if request.method == "POST": 
     email = request.form["email"]
     username = request.form['username']
@@ -40,10 +33,22 @@ def chat ():
     user = {'username': username, 'email':email, 'password':password }
     UID = login_session["user"]['localId']
     db.child("user").child(UID).set(user)
-    return render_template("chat.html") 
-  else : 
-    return render_template("index.html") 
+    return redirect(url_for("chat")) 
+  return render_template("index.html")
+
+
+@app.route ('/chat', methods = ['GET', 'POST']) 
+def chat ():
+  
+  return render_template('chat.html')
  
+
+
+
+
+
+
+
 
 if __name__ == "__main__":  
   app.run(debug=True)

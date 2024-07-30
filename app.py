@@ -7,15 +7,18 @@ import pyrebase
 app = Flask( __name__ , template_folder='templates',  static_folder='static'  )
 
 firebaseConfig = {
-  "apiKey": "AIzaSyAAL4ipnYtGe8RGsmH4VUgs5RYwgP64X_Y",
-  "authDomain": "giftapp-ad937.firebaseapp.com",
-  "databaseURL": "https://giftapp-ad937-default-rtdb.europe-west1.firebasedatabase.app",
-  "projectId": "giftapp-ad937",
-  "storageBucket": "giftapp-ad937.appspot.com",
-  "messagingSenderId": "904198728084",
-  "appId": "1:904198728084:web:3bcf00efde3e24626fc781",
-  'measurementId': "G-BF70XBJ7YD"
-};
+  "apiKey": "AIzaSyCqhRweG6kJZPEdkymGcVJrO_aB_pGeUtU",
+  "authDomain": "givat-haviva-69b54.firebaseapp.com",
+  "databaseURL": "https://givat-haviva-69b54-default-rtdb.europe-west1.firebasedatabase.app",
+  "projectId": "givat-haviva-69b54",
+  "storageBucket": "givat-haviva-69b54.appspot.com",
+  "messagingSenderId": "633279220900",
+  "appId": "1:633279220900:web:020c8bdd6d774df229aa31",
+  "measurementId": "G-B9VJSMDJR4",
+  "databaseURL":"https://givat-haviva-69b54-default-rtdb.europe-west1.firebasedatabase.app/"
+}
+
+
 
 @app.route('/home', methods=['GET', 'POST'])
 def index():
@@ -29,11 +32,17 @@ db = firebase.database()
 
 @app.route ('/chat', methods = ['GET', 'POST']) 
 def chat (): 
-  input_1 = request.form["students"] 
-
-
-
-  return render_template("chat.html") 
+  if request.method == "POST": 
+    email = request.form["email"]
+    username = request.form['username']
+    password = request.form['password']
+    login_session["user"] = auth.create_user_with_email_and_password(email, password)
+    user = {'username': username, 'email':email, 'password':password }
+    UID = login_session["user"]['localId']
+    db.child("user").child(UID).set(user)
+    return render_template("chat.html") 
+  else : 
+    return render_template("index.html") 
  
 
 if __name__ == "__main__":  

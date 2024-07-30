@@ -29,8 +29,10 @@ def index():
     email = request.form["email"]
     username = request.form['username']
     password = request.form['password']
+    pair = None 
+    choice = request.form['choice']
     login_session["user"] = auth.create_user_with_email_and_password(email, password)
-    user = {'username': username, 'email':email, 'password':password }
+    user = {'username': username, 'email':email, 'password':password, "pair": pair, "choice": choice}
     UID = login_session["user"]['localId']
     db.child("user").child(UID).set(user)
     return redirect(url_for("chat")) 
@@ -39,8 +41,15 @@ def index():
 
 @app.route ('/chat', methods = ['GET', 'POST']) 
 def chat ():
-  
-  return render_template('chat.html')
+  if request.method == 'POST':
+    studentInput = request.form['student']
+    UID = login_session["user"]['localId']
+    msg = {"user": UID, "input" : studentInput}
+    db.child("user").child(UID).child("chat").push(studentInput)
+
+    return render_template('chat.html')
+
+  return render_template('chat.html') 
  
 
 

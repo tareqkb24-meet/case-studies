@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect 
 from flask import session as login_session
 import random
 import pyrebase
@@ -26,6 +26,10 @@ db = firebase.database()
 def index():
   return render_template("index.html")
 
+@app.route ('/chat') 
+def chat (): 
+    return render_template("chat.html") 
+ 
 
 if __name__ == "__main__":  
   app.run(debug=True)

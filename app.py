@@ -15,18 +15,19 @@ firebaseConfig = {
   "messagingSenderId": "904198728084",
   "appId": "1:904198728084:web:3bcf00efde3e24626fc781",
   'measurementId': "G-BF70XBJ7YD"
-}
+};
+
+@app.route('/home', methods=['GET', 'POST'])
+def index():
+    return render_template("index.html")
 
 app.config['SECRET_KEY'] = 'super-secret-key'
 firebase = pyrebase.initialize_app(firebaseConfig) 
 auth = firebase.auth()
 db = firebase.database()
 
-@app.route('/home', methods=['GET', 'POST'])
-def index():
-  return render_template("index.html")
 
-@app.route ('/chat') 
+@app.route ('/chat', methods = ['GET', 'POST']) 
 def chat (): 
     return render_template("chat.html") 
  

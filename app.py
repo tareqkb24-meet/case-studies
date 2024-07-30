@@ -36,16 +36,12 @@ def index():
     UID = login_session["user"]['localId']
     login_session["user"]["choice"] = choice
     db.child("user").child(UID).set(user)
-    for student in db.child("user").get().val():  
-        if db.child("user").child(student).child("pair").get().val() == "None" and db.child("user").child(student).child("choice").get().val() != login_session["user"]["choice"]:
-          db.child("user").child(UID).update()
-
-      for applier in db.child("user").get().val():  
-        if db.child("user").child(applier).child("pair").get().val() == "None" and db.child("user").child(applier).child("choice").get().val() != login_session["user"]["choice"]:
-          db.child("user").child(UID).update()
-
-
-    return redirect(url_for("chat")) 
+    for i in db.child("user").get().val():  
+        if db.child("user").child(i).child("pair").get().val() == "None" and db.child("user").child(i).child("choice").get().val() != login_session["user"]["choice"]:
+          db.child("user").child(UID).update({'pair':i})
+          db.child("user").child(i) .update({'pair':UID})
+          return redirect(url_for("chat"))
+    return('not pair')
   return render_template("index.html")
 
 

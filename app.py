@@ -16,7 +16,7 @@ firebaseConfig = {
   "appId": "1:633279220900:web:020c8bdd6d774df229aa31",
   "measurementId": "G-B9VJSMDJR4",
   "databaseURL":"https://givat-haviva-69b54-default-rtdb.europe-west1.firebasedatabase.app/"
-}
+} 
 
 app.config['SECRET_KEY'] = 'super-secret-key'
 firebase = pyrebase.initialize_app(firebaseConfig) 
@@ -29,12 +29,22 @@ def index():
     email = request.form["email"]
     username = request.form['username']
     password = request.form['password']
-    pair = None 
+    pair = "None" 
     choice = request.form['choice']
     login_session["user"] = auth.create_user_with_email_and_password(email, password)
     user = {'username': username, 'email':email, 'password':password, "pair": pair, "choice": choice}
     UID = login_session["user"]['localId']
+    login_session["user"]["choice"] = choice
     db.child("user").child(UID).set(user)
+    for student in db.child("user").get().val():  
+        if db.child("user").child(student).child("pair").get().val() == "None" and db.child("user").child(student).child("choice").get().val() != login_session["user"]["choice"]:
+          db.child("user").child(UID).update()
+
+      for applier in db.child("user").get().val():  
+        if db.child("user").child(applier).child("pair").get().val() == "None" and db.child("user").child(applier).child("choice").get().val() != login_session["user"]["choice"]:
+          db.child("user").child(UID).update()
+
+
     return redirect(url_for("chat")) 
   return render_template("index.html")
 
@@ -45,7 +55,7 @@ def chat ():
     studentInput = request.form['student']
     UID = login_session["user"]['localId']
     msg = {"user": UID, "input" : studentInput}
-    db.child("user").child(UID).child("chat").push(studentInput)
+    db.child("user").child(UID).child("chat").push(msg)
 
     return render_template('chat.html')
 

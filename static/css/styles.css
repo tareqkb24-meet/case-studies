@@ -1,4 +1,9 @@
+#example1{
 
+  background-position: right bottom, left top;
+  background-repeat: no-repeat, repeat;
+
+}
 @charset "UTF-8";
 :root { 
   --bs-blue: #1D809F;

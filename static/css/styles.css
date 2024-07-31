@@ -1,5 +1,5 @@
 .example3{
-    background-color: #3498db; /* Background color */
+    background-color: blueviolet; /* Background color */
     color: white;              /* Text color */
     padding: 10px 20px;        /* Padding */
     border-radius: 5px;        /* Rounded corners */
@@ -8,7 +8,13 @@
     text-transform: uppercase; /* Uppercase text */
     transition: background-color 0.3s, transform 0.2s; /
 }
+.example3:hover {
+    background-color: greenyellow; /* Darker background on hover */
+}
 
+.example3:active {
+    transform: scale(0.95);    /* Slightly shrink on click */
+}
 .example1{
 
   

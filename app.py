@@ -25,6 +25,22 @@ db = firebase.database()
 
 @app.route('/home', methods=['GET', 'POST'])
 def index():
+
+  if request.method == "POST": 
+    email = request.form["email"]
+    username = request.form['username']
+    password = request.form['password']
+    pair = "None" 
+    choice = request.form['choice']
+    login_session["user"] = auth.create_user_with_email_and_password(email, password)
+    user = {'username': username, 'email':email, 'password':password, "pair": pair, "choice": choice}
+    UID = login_session["user"]['localId']
+    login_session["user"]["choice"] = choice
+    db.child("user").child(UID).set(user)
+    for student in db.child("user").get().val():  
+      if db.child("user").child(student).child("pair").get().val() == "None" and db.child("user").child(student).child("choice").get().val() != login_session["user"]["choice"]:
+        db.child("user").child(UID).update()
+
   if request.method == "POST":
     if "change_mode" in request.form:
       print(login_session['mode'])
@@ -33,6 +49,7 @@ def index():
       elif login_session['mode'] == "login":
         login_session['mode'] = "signup"
       print(login_session['mode'])
+
 
     else:
        if login_session['mode'] == "signup":

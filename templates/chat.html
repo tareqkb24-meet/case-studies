@@ -15,14 +15,14 @@
 	<input type="submit" class="iwant" value="submit">
 </form>
 
-<ul>
+
 	{%if conversation is not none %}
 		{%for i in conversation%}
 			{{users[conversation[i]['user']]["username"]}}
 			<li>{{conversation[i]['input']}}</li>
 		{%endfor%}
 	{%endif%}
-</ul>
+
 
 
 </center> 

@@ -121,7 +121,7 @@
 
         <section class="">
             <div class="container px-4 px-lg-5 text-center">
-                <h2 class="mb-4">Solution is here!</h2>
+                <h2 class="mb-4">{{mode}}</h2>
                 
         <script src="js/scripts.js"></script>
     </body>
@@ -154,7 +154,7 @@
     </form>
     {%endif%}
     <form action="/home" method="POST">
-        <input type="submit" name="change_mode" value="change_mode">
+        <input type="submit" name="change_mode" value="{{not_mode}}">
     </form>
     </body> 
 </html> 

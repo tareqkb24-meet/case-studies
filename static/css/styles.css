@@ -10,10 +10,10 @@
 }
 .example2{
   position: relative;
-  width: 300px;  
-  height: 150px;
-  margin-top: 10px;    /* Space above the image */
-  margin-left: 665px;
+  width: 250px;  
+  height: 120px;
+  margin-top: -190px;    /* Space above the image */
+  margin-left: 965px;
    /* Space to the right of the image */
   background-color: rgba(90,100,0,.5);
   background-blend-mode: multiply;

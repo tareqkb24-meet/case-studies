@@ -40,9 +40,7 @@ def index():
     # for student in db.child("user").get().val():  
       # if db.child("user").child(student).child("pair").get().val() == "None" and db.child("user").child(student).child("choice").get().val() != login_session["user"]["choice"]:
       #   db.child("user").child(UID).update()
-        
 
-  if request.method == "POST":
     if "change_mode" in request.form:
       print(login_session['mode'])
       if login_session['mode'] == "signup":
@@ -61,7 +59,8 @@ def index():
           pair = "None" 
           choice = request.form['choice']
           login_session["user"] = auth.create_user_with_email_and_password(email, password)
-        except:
+        except Exception as e:
+          print(e)
           return render_template("index.html")
         user = {'username': username, 'email':email, 'password':password, "pair": pair, "choice": choice}
         UID = login_session["user"]['localId']
@@ -104,9 +103,15 @@ def chat():
 
     db.child("user").child(pair).child("chat").push(msg)
 
-  conversation = db.child("user").child(UID).child("chat").get().val()
-  print(conversation)
-  return render_template('chat.html', conversation = conversation) 
+    conversation = db.child("user").child(UID).child("chat").get().val()
+    print(conversation)
+    username = db.child("user").child(UID).get().val()["username"]
+  return render_template('chat.html', conversation = conversation, username = "username") 
+
+   
+
+
+  #return render_template("index.html")
  
 
 if __name__ == "__main__":  

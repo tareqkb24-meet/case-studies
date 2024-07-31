@@ -25,6 +25,50 @@
 
 
 }
+.login{
+  background-color: #4CAF50; /* Green background */
+  border: none; /* Remove default border */
+  color: white; /* White text */
+  padding: 15px 32px; /* Padding for size */
+  text-align: center; /* Center text */
+  text-decoration: none; /* Remove underline */
+  display: inline-block; /* Inline-block for alignment */
+  font-size: 16px; /* Text size */
+  margin: 4px 2px; /* Margins for spacing */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 8px; /* Rounded corners */
+  transition: background-color 0.3s, transform 0.2s; 
+}
+
+
+
+/* Hover effect */
+.login:hover {
+    background-color: #45a049; /* Darker green */
+}
+
+/* Active effect */
+.login:active {
+    transform: scale(0.98); /* Slightly shrink button */
+}
+
+/* Focus effect */
+.login:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2); /* Add shadow */
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 #password{
   width: 18.5%;

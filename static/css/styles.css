@@ -25,6 +25,15 @@
 
 
 }
+
+#password{
+  width: 18.5%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
 .example2{
   position: relative;
   width: 250px;  

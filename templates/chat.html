@@ -16,12 +16,12 @@
 </form>
 
 <ul>
-	{%if conversations is not none %}
-			{%for i in conversation%}
-			{{username}}
-				<li>{{conversation[i]['input']}}</li>
-			{%endfor%}
-		{%endif%}
+	{%if conversation is not none %}
+		{%for i in conversation%}
+			{{users[conversation[i]['user']]["username"]}}
+			<li>{{conversation[i]['input']}}</li>
+		{%endfor%}
+	{%endif%}
 </ul>
 
 

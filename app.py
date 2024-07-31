@@ -37,9 +37,10 @@ def index():
     UID = login_session["user"]['localId']
     login_session["user"]["choice"] = choice
     db.child("user").child(UID).set(user)
-    for student in db.child("user").get().val():  
-      if db.child("user").child(student).child("pair").get().val() == "None" and db.child("user").child(student).child("choice").get().val() != login_session["user"]["choice"]:
-        db.child("user").child(UID).update()
+    # for student in db.child("user").get().val():  
+      # if db.child("user").child(student).child("pair").get().val() == "None" and db.child("user").child(student).child("choice").get().val() != login_session["user"]["choice"]:
+      #   db.child("user").child(UID).update()
+        
 
   if request.method == "POST":
     if "change_mode" in request.form:

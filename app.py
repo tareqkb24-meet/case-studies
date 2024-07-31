@@ -25,6 +25,7 @@ db = firebase.database()
 
 @app.route('/home', methods=['GET', 'POST'])
 def index():
+
   if request.method == "POST": 
     email = request.form["email"]
     username = request.form['username']
@@ -40,13 +41,41 @@ def index():
       if db.child("user").child(student).child("pair").get().val() == "None" and db.child("user").child(student).child("choice").get().val() != login_session["user"]["choice"]:
         db.child("user").child(UID).update()
 
-      for applier in db.child("user").get().val():  
-        if db.child("user").child(applier).child("pair").get().val() == "None" and db.child("user").child(applier).child("choice").get().val() != login_session["user"]["choice"]:
-          db.child("user").child(UID).update()
+  if request.method == "POST":
+    print('lala')
+    if "change_mode" in request.form:
+      print(login_session['mode'])
+      if login_session['mode'] == "signup":
+        login_session['mode'] = "login"
+      elif login_session['mode'] == "login":
+        login_session['mode'] = "signup"
+      print(login_session['mode'])
 
 
-    return redirect(url_for("chat")) 
-  return render_template("index.html")
+    else:
+      if login_session['mode'] == "signup":
+        email = request.form["email"]
+        username = request.form['username']
+        password = request.form['password']
+        pair = "None" 
+        choice = request.form['choice']
+        login_session["user"] = auth.create_user_with_email_and_password(email, password)
+        user = {'username': username, 'email':email, 'password':password, "pair": pair, "choice": choice}
+        UID = login_session["user"]['localId']
+        login_session["user"]["choice"] = choice
+        db.child("user").child(UID).set(user)
+        for i in db.child("user").get().val():  
+            if db.child("user").child(i).child("pair").get().val() == "None" and db.child("user").child(i).child("choice").get().val() != login_session["user"]["choice"]:
+              db.child("user").child(UID).update({'pair':i})
+              db.child("user").child(i) .update({'pair':UID})
+              return redirect(url_for("chat"))
+        return('not pair')
+      if mode == "signin":
+        #signin
+        pass
+    return render_template("index.html", mode=login_session['mode'])
+  login_session['mode'] = "signup"
+  return render_template("index.html", mode=login_session['mode'])
 
 
 @app.route ('/chat', methods = ['GET', 'POST']) 
@@ -61,8 +90,6 @@ def chat ():
 
   return render_template('chat.html') 
  
-
-
 
 
 
